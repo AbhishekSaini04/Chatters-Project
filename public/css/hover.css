@@ -1,0 +1,83 @@
+
+:root {
+    --neonBlue: aqua;
+    --green: chartreuse;
+    --orange: #f68726;
+    --pink: rgb(255, 0, 200);
+    --red: rgb(255, 29, 40);
+    --blue: rgb(0, 47, 255);
+
+
+}
+/* hover */
+
+/* nav routes hover */
+.orange-hover-underline-animation:hover{
+    /* color: var(--orange); */
+    /* opacity: .8; */
+}
+.neonBlue-hover-underline-animation:hover{
+
+    /* opacity: .8; */
+}
+.green-hover-underline-animation:hover{
+    /* opacity: .8; */
+}
+
+
+a.orange:hover{
+    color: var(--orange);
+    /* opacity: .8; */
+}
+a.neonBlue:hover{
+    color: var(--neonBlue);
+    /* opacity: .8; */
+}
+a.green:hover{
+    color: var(--green);
+    /* opacity: .8; */
+}
+
+
+/* <--------- footer--------> */
+
+
+/* footer contect us */
+div.center>li>a>i.insta:hover{
+    color: rgb(241, 9, 203);
+    
+}
+div.center>li>a>i.snap:hover{
+    color: rgb(241, 237, 9);
+
+}
+div.center>li>a>i.fb:hover{
+    color: rgb(4, 0, 231);
+    
+}
+
+/* login button hover */
+button.login:hover{
+    border-color:var(--pink);
+    color:var(--pink);
+
+}
+
+
+/* Chat button */
+
+button.text:hover{
+    border: 2px solid  rgb(107, 212, 75);
+    box-shadow: 0 12px 16px 0 rgba(93, 158, 73, 0.24),0 17px 50px 0 rgba(94, 161, 39, 0.19);
+}
+button.video:hover{
+    border: 2px solid  rgb(74, 126, 123);
+    box-shadow: 0 12px 16px 0 rgba(41, 87, 87, 0.24),0 17px 50px 0 rgba(58, 145, 123, 0.19);
+    
+}
+
+/* .slogan:has(.chat:hover) .chat:not(:hover){
+    filter: blur(1px);
+    opacity: 0.8;
+    scale: .9;
+} */

@@ -1,0 +1,12 @@
+# Exported from Render on 2024-04-20T07:40:18Z
+services:
+- type: web
+  name: Chatters!
+  runtime: node
+  repo: https://github.com/AbhishekSaini04/Chatters
+  plan: free
+  region: oregon
+  buildCommand: npm install
+  startCommand: node index.js
+  rootDir: ./
+version: "1"

@@ -1,0 +1,102 @@
+/* -------------HOME RESPONSIVE-------------- */
+/* ----------HEADER---------- */
+/* ==========NAVBAR========== */
+
+/* Responsive Logo */
+@media screen and (width>=400px){
+    img.navChatterLogo{
+        margin-left: -35px;
+    }
+    
+}
+
+/* responsive toggle icon */
+@media screen and (width<=399px) {
+    .navbar-toggler-icon{
+        position: fixed;
+        /* background-color: #bb0f0f; */
+        top: 30px;
+        left: 16px;
+    }
+    /* div.row{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    } */
+
+}
+
+
+/* Chat Buttons */
+@media screen and  (width <=950px){
+    button.chat{
+        height: 45%;
+    width: 40%;
+    }
+    
+}
+
+@media screen and (width>809px)  {
+    p.aboutUsPara{
+        display: inline;
+        text-align: center;
+        /* font-weight: 500; */
+    }
+
+
+}
+@media screen and (width<=809px)  {
+ button.chat{
+    padding: 6px 0px;
+    
+
+ }
+    main{
+        flex-direction: column;
+        
+    }
+    div.leftDiv{
+    
+        width: 100%;
+        
+    }
+    div.rightDiv{
+        width: 100%;
+    
+    }
+    video.mainVideo{
+        padding-top: 40px;
+    }
+    p{  font-size: small;
+        text-align: center;
+        color: white;
+        display: inline;
+    }
+    p.aboutUsPara{
+        display: inline;
+        text-align: center;
+        font-weight: 500;
+    }
+    li.teamMembers{
+        
+        font-weight: 500;
+    }
+    
+    
+}
+
+/* Login Button */
+@media screen and (width>=991px) {
+    button.login{
+ position: absolute;
+  right: 24px;
+  top: 29px;
+    }
+    
+}
+
+
+
+
+

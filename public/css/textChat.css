@@ -1,0 +1,53 @@
+*{
+    margin: 0;
+    padding: 0;
+
+}
+body{height: 100vh;
+    color: aliceblue;
+}
+
+
+/* main */
+div.messageBox{
+    width: 100%;
+    /* background-color: red; */
+    height: 76%;
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-start;
+
+
+    color: white;
+    
+}
+
+
+
+
+
+
+/* Chat Section */
+footer{
+    height: 10%;
+    width: 100%;
+    /* position:absolute; */
+    /* bottom: 0px;; */
+}
+div.chatSection{
+    height: 100%;
+    width: 100%;
+    
+}
+div.chatSection>button{
+    height: 100%;
+    width: 10%;
+}
+div.chatSection>input.inputBox{
+    height: 100%;
+    width: 80%;
+    font-family: "poppins", sans-serif;
+    font-size: larger;
+
+}

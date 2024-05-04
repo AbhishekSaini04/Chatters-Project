@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Amaranth:ital,wght@0,400;0,700;1,400;1,700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Oswald:wght@200..700&display=swap"
+            rel="stylesheet">
+
+        <!-- for favicon -->
+        <link rel="apple-touch-icon" sizes="180x180"
+            href="/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32"
+            href="/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16"
+            href="/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+
+        <!--  -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>chatters</title>
+
+        <!-- Stylesheets -->
+
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/responsive.css">
+        <link rel="stylesheet" href="css/after.css">
+        <link rel="stylesheet" href="css/hover.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
+
+    <body style="background-color: #101010;">
+
+        <!-- header section -->
+
+        <header>
+            <!-- nav section -->
+            <nav class="navbar navbar-expand-lg ">
+                <div class="container-fluid">
+                    <img class="navChatterLogo"
+                        src="./res/imgs/Logo2.SVG" alt="banner">
+                    <!-- <a class="navbar-brand" href="/"><img class="navChatterLogo"
+                            src="./res/imgs/Logo2.SVG" alt="banner"></a> -->
+                    <button class="navbar-toggler " type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavAltMarkup"
+                        aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span
+                            class=" material-symbols-outlined navbar-toggler-icon">
+                            density_medium
+                        </span>
+                    </button>
+                    <div class="routesDiv collapse navbar-collapse"
+                        id="navbarNavAltMarkup">
+                        <div class="routes navbar-nav">
+
+                            <a
+                                class="green green-hover-underline-animation nav-link "
+                                aria-current="page" href="/">Home</a>
+                            <a
+                                class="neonBlue neonBlue-hover-underline-animation nav-link"
+                                href="#aboutUs">About</a>
+                            <a
+                                class="orange orange-hover-underline-animation nav-link"
+                                href="#feedback">Feedback</a>
+
+                            <div class=" loginButtonDiv">
+                                <form method="get" action="/login">
+
+                                    <button type="submit" class="login">Login</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- main section -->
+
+        <main>
+            <div class="leftDiv">
+                <div class="chatRedefinedDiv">
+
+                    <video class="chatRedefinedVideo" nodownload nofullscreen
+                        noremoteplayback muted autoplay loop
+                        src="res/videos/chat-redefined1.mp4"></video>
+
+                </div>
+                <p><b>Our on-site chatting experence.
+                        Transform your free time into fun.
+                        Make new friends everyday.<b></p>
+                        <div class="slogan">
+                            <button onclick="redirectToTextChat('/text-chat')"
+                                class="chat text textChat">CHAT</button>
+                            <button onclick="redirectToTextChat('/video-chat')"
+                                class="chat video">VIDEO</button>
+                        </div>
+                    </div>
+                    <div class="rightDiv">
+                        <video autoplay loop muted
+                            src="/res/videos/mainVideo1.mp4"
+                            class="mainVideo"></video>
+                    </div>
+
+                </main>
+                <hr>
+                <hr>
+
+                <!-- footer section -->
+                <footer class="bd-footer py-4 py-md-5 mt-4 ">
+                    <!-- <hr> -->
+
+                    <div
+                        class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
+
+                        <div class="row">
+
+                            <div class="col-6 col-lg-2 mb-3">
+                                <h5>Team Chatters</h5>
+                                <ul class="list-unstyled">
+                                    <li class="teamMembers mb-2"><a
+                                            href>Abhishek</a></li>
+                                    <li class="teamMembers mb-2"><a
+                                            href>Rahul</a></li>
+                                    <li class="teamMembers mb-2"><a
+                                            href>Sachin</a></li>
+                                    <li class="teamMembers mb-2"><a
+                                            href>Shekhar</a></li>
+                                    <li class="teamMembers mb-2"><a
+                                            href>Suman</a></li>
+                                    <li class="teamMembers mb-2"><a
+                                            href>Sunila</a></li>
+
+                                </ul>
+                            </div>
+
+                            <div class="col-6 col-lg-2 mb-3">
+                                <h5 id="aboutUs">About Us</h5>
+                                <p class="aboutUsPara">We are Chatters! <br>Chatters
+                                    is the Platfrom for Introverts Who can't
+                                    express thier feeling to Peoples around! You
+                                    can Make friend Online!</p>
+                            </div>
+
+                            <div class="col-6 col-lg-2 mb-3">
+                                <h5 id="contectUs">Contect Us On</h5>
+                                <ul class="list-unstyled">
+                                    <div class="center">
+                                        <li class="mb-2"><a href="chatters"><i
+                                                    class="fa-brands fa-square-instagram  insta"></a></i>
+                                        </li>
+                                        <li class="mb-2"><a href="chatters"><i
+                                                    class="snap fa-brands fa-square-snapchat"></a></i>
+                                        </li>
+
+                                    </div>
+                                </ul>
+                            </div>
+
+                            <div id="feedback"
+                                class="feedback col-6 col-lg-2 mb-3">
+                                <h5>Your Feeback</h5>
+
+                                <ul class="list-unstyled">
+                                    <form action="/" method="post">
+                                        <div class="input-group mb-3">
+                                            <div class="form-floating">
+                                                <input type="text"
+                                                    class="form-control"
+                                                    id="floatingInputGroup1"
+                                                    placeholder="Astro">
+                                                <label for="floatingInputGroup1">Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="form-floating">
+                                                <input type="text"
+                                                    class="form-control"
+                                                    id="floatingInputGroup1"
+                                                    placeholder="example@mail.com">
+                                                <label for="floatingInputGroup1">Email</label>
+                                            </div>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="form-floating">
+                                                <input type="text"
+                                                    class="form-control"
+                                                    id="floatingInputGroup1"
+                                                    placeholder="What's in your mind?">
+                                                <label for="floatingInputGroup1">Feedback</label>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </footer>
+
+                <script src="js/onClick.js"></script>
+                <script>
+            // const fun=()=>{
+            //     window.location.href = "/text-chat";
+            //     console.log("button Clicked");
+            // }
+        // const textChatButton = document.querySelector('textChat');
+        // console.log(textChatButton);
+
+        //     textChatButton.addEventListener("click", ()=>{
+        //         console.log("Clicked");
+        //     });
+                
+
+            
+            
+            </script>
+
+            </body>
+
+        </html>

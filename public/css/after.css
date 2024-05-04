@@ -1,0 +1,85 @@
+:root {
+    --neonBlue: aqua;
+    --green: chartreuse;
+    --orange: #f68726;
+    --pink: rgb(255, 0, 200);
+
+
+}
+/* green */
+.green-hover-underline-animation {
+    display: inline-block;
+    position: relative;
+    color: var(--green);
+  }
+  
+  .green-hover-underline-animation::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--green);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+  
+  .green-hover-underline-animation:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  /* neonBlue */
+
+  .neonBlue-hover-underline-animation {
+    display: inline-block;
+    position: relative;
+    color: var(--neonBlue);
+  }
+  
+  .neonBlue-hover-underline-animation::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--neonBlue);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+  
+  .neonBlue-hover-underline-animation:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  /* Orange */
+
+  .orange-hover-underline-animation {
+    display: inline-block;
+    position: relative;
+    color: var(--orange);
+  }
+  
+  .orange-hover-underline-animation::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--orange);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+  
+  .orange-hover-underline-animation:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
