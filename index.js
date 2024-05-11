@@ -13,31 +13,17 @@ const PORT =process.env.PORT || 5001;
 // created HTTP sever
 const server = http.createServer(app);
 
-//======== uses==========
+//======== middlewares==========
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 
-// Creating  socket io sever
-const io = new Server(server);
-// socket io
-io.on("connection", (socket) => {
-  console.log("User connected with id:", socket.id);
-  socket.on("user-message", (message) => {
-    console.log("User Message:", message);
-    // sends data to clients
-    // io.emit("message", message);
-    socket.broadcast.emit("message", message);
-  });
-});
 
-// for state of app
-var sockets = {};
-var users = {};
-var strangerQueue = false;
-var peopleActive = 0;
-var peopleTotal = 0;
+// Declareration
+let textChatUsersArray=[""];
+let videoChatUsersArray;
+
 
 // helper functions for logs
 function fillZero(val) {
@@ -56,7 +42,52 @@ function timestamp() {
     "]"
   );
 }
+// Creating  socket io sever
+const io = new Server(server);
+
+// socket io on connection
+io.on("connection", (socket) => {
+  console.log("User connected with id:", socket.id);
+  let noneUser=textChatUsersArray.indexOf("");
+  console.log(noneUser);
+  if(noneUser==0){ 
+    textChatUsersArray.splice(noneUser)
+  }
+  textChatUsersArray.push(socket.id);
+  console.log(textChatUsersArray);
+  
+  socket.on("user-message", (message) => {
+    console.log("User Message:", message);
+    // sends data to clients
+    // io.emit("message", message);
+    socket.to(textChatUsersArray[0]).emit("message", message);
+  });
+
+// socket io on disconnect
+socket.on("disconnecting", (reason) => {
+  // console.log(reason);
+  console.log("User Disconnected with id:"+socket.id);
+  let userWithID=textChatUsersArray.indexOf(socket.id);
+  console.log(userWithID); 
+    textChatUsersArray.splice(userWithID)
+  
+});
+
+
+});
+
+
+
+// for state of app
+// var sockets = {};
+// var users = {};
+// var strangerQueue = false;
+// var peopleActive = 0;
+// var peopleTotal = 0;
+
 console.log("Current Time:", timestamp());
+
+
 
 // ------------all routes-------------
 
