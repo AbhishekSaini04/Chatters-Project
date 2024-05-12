@@ -60,7 +60,7 @@ io.on("connection", (socket) => {
     console.log("User Message:", message);
     // sends data to clients
     // io.emit("message", message);
-    socket.to(textChatUsersArray[0]).emit("message", message);
+    socket.broadcast.emit("message", message);
   });
 
 // socket io on disconnect
@@ -78,12 +78,6 @@ socket.on("disconnecting", (reason) => {
 
 
 
-// for state of app
-// var sockets = {};
-// var users = {};
-// var strangerQueue = false;
-// var peopleActive = 0;
-// var peopleTotal = 0;
 
 console.log("Current Time:", timestamp());
 
