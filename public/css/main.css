@@ -192,7 +192,7 @@ div.slogan{
     /* background-color:transparent; */
     /* background-color:rgb(255, 255, 255); */
 }
-p{
+p.saloganPara{
     display: none;
 }
 

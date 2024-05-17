@@ -68,7 +68,7 @@
     video.mainVideo{
         padding-top: 40px;
     }
-    p{  font-size: small;
+    p.saloganPara{  font-size: small;
         text-align: center;
         color: white;
         display: inline;

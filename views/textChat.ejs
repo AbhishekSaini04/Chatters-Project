@@ -87,14 +87,16 @@
                 </div>
             </nav>
         </header>
-``
+
         <!-- main section -->
-         <div class="messageBox div"></div>
-        </div>
+         <div class="messageBox div">
+            <p class="usersCount">0 live</p>
+         </div>
+    
         <footer>
 
             <div class="chatSection">
-                <button class="new-skipButton newConnection skipConnection">New</button><input type="text" name placeholder="enter a message!"  class="inputBox" id="message"><button id="sendBtn">send</button>
+                <button class="new-skipButton new ">New</button><input disabled type="text" name placeholder="enter a message!"  class="inputBox" id="message"><button id="sendBtn">send</button>
                 
             </div>
             
@@ -113,14 +115,18 @@
         
             
             // new socket 
-            const socket=io();
-
+            const socket=io();     
+            socket.disconnect();   
 
             // section
             const new_skipButton=document.querySelector(".new-skipButton");
             const chatDiv=document.querySelector(".div");
             const sendButton=document.getElementById("sendBtn");
             const inputBox=document.getElementById("message");
+            const usersCount=document.querySelector(".usersCount");
+            // console.log("Hello",usersCount);
+         
+
         
         // function :message send to server
         function sendMessage(e){
@@ -140,6 +146,34 @@
         }
 
         }
+
+
+// skip or new button javascript
+new_skipButton.addEventListener("click",()=>{
+    // console.log(
+    //     new_skipButton.classList
+    // );
+    if(new_skipButton.classList[1]==="new"){
+        new_skipButton.innerText="Skip";
+        new_skipButton.classList.remove("new");
+        new_skipButton.classList.add("skip");
+        
+        socket.connect();
+        inputBox.disabled=false;
+       
+    }else{
+
+        if(new_skipButton.classList[1]==="skip"){
+            inputBox.disabled=true;
+            socket.disconnect();
+                new_skipButton.innerText="New";
+                new_skipButton.classList.remove("skip");
+                new_skipButton.classList.add("new");
+            }
+        }
+
+});
+
         // Messege send to server by clicking sendButton
 sendButton.addEventListener("click",(e)=>sendMessage(e));
                 
@@ -162,7 +196,20 @@ inputBox.addEventListener("keypress", (e)=>{
             const newDiv = document.createElement("div");
             newDiv.innerText="Stranger:"+msage;
             chatDiv.appendChild(newDiv);
-        })
+        });
+      
+
+        socket.on("ttl",(count)=>{
+            usersCount.innerText=count+" live";
+            console.log(count);
+        });
+        socket.on("ttll",(count)=>{
+            usersCount.innerText=count+" live";
+            console.log(count);
+        });
+
+
+
 
 
 

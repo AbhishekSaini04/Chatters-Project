@@ -22,6 +22,11 @@ app.use(express.static("public"));
 
 // Declareration
 let textChatUsersArray=[""];
+let noneUser=textChatUsersArray.indexOf("");
+// console.log(noneUser);
+if(noneUser==0){ 
+  textChatUsersArray.splice(noneUser)
+}
 let videoChatUsersArray;
 
 
@@ -47,15 +52,15 @@ const io = new Server(server);
 
 // socket io on connection
 io.on("connection", (socket) => {
+
   console.log("User connected with id:", socket.id);
-  let noneUser=textChatUsersArray.indexOf("");
-  console.log(noneUser);
-  if(noneUser==0){ 
-    textChatUsersArray.splice(noneUser)
-  }
+ 
   textChatUsersArray.push(socket.id);
-  console.log(textChatUsersArray);
-  
+  console.log(`Total users=${textChatUsersArray.length}`);
+  io.emit("ttl", textChatUsersArray.length);
+
+
+  //Message emit
   socket.on("user-message", (message) => {
     console.log("User Message:", message);
     // sends data to clients
@@ -63,17 +68,22 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("message", message);
   });
 
-// socket io on disconnect
+
+// socket  on disconnect 
 socket.on("disconnecting", (reason) => {
   // console.log(reason);
   console.log("User Disconnected with id:"+socket.id);
   let userWithID=textChatUsersArray.indexOf(socket.id);
-  console.log(userWithID); 
-    textChatUsersArray.splice(userWithID)
+  io.emit("ttll",textChatUsersArray.length);
+   
+    textChatUsersArray.splice(userWithID);
+    console.log(`Total users=${textChatUsersArray.length}`);
+    
+    
+    
+  });
   
-});
-
-
+  
 });
 
 
@@ -110,5 +120,5 @@ app.use("*", require("./routes/routeNotFound/routeNotFoundGET"));
 
 // listening to port
 server.listen(PORT, () => {
-  console.log(`The Server is running on ${PORT} Port`);
+  console.log(`The Server is running on Port: ${PORT} `);
 });
