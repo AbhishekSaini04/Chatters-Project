@@ -97,7 +97,7 @@
         <footer>
 
             <div class="chatSection">
-                <button class="new-skipButton new ">New</button><input disabled type="text" name placeholder="enter a message!"  class="inputBox" id="message"><button id="sendBtn">send</button>
+                <button class="new-skipButton new ">New</button><input disabled type="text" name placeholder="enter a message!"  class="inputBox" id="message"><button disabled id="sendBtn">send</button>
                 
             </div>
             
@@ -171,6 +171,7 @@ new_skipButton.addEventListener("click",()=>{
     }else{
 
         if(new_skipButton.classList[1]==="skip"){
+            sendButton.disabled=true;
             inputBox.disabled=true;
             socket.disconnect();
             commentsSpan.style.display="flex";
@@ -187,7 +188,6 @@ new_skipButton.addEventListener("click",()=>{
 sendButton.addEventListener("click",(e)=>sendMessage(e));
                 
     
-    
 // sending message to server by ENTER
 inputBox.addEventListener("keypress", (e)=>{
     if(e.key==="Enter"){sendMessage();}
@@ -196,16 +196,25 @@ inputBox.addEventListener("keypress", (e)=>{
 
 
 
+// send button enable/stranger connected
+socket.on("strangerConnection",(condition)=>{
+    console.log("i'm condition ",condition);
+    if(condition){
+        sendButton.disabled=!condition;
+        socket.emit("connectionReq",true);
+    }
+})
+
 
         
-        // message recieve from the sever
-        socket.on("message",(msage)=>{
-            console.log("Message from server",msage);
-        
-            const newDiv = document.createElement("div");
-            newDiv.innerText="Stranger:"+msage;
-            chatDiv.appendChild(newDiv);
-        });
+// message recieve from the sever
+              socket.on("message",(msage)=>{
+                   console.log("Message from server",msage);
+
+                  const newDiv = document.createElement("div");
+                  newDiv.innerText="Stranger:"+msage;
+                  chatDiv.appendChild(newDiv);
+           });
       
 // users count
         socket.on("ttl",(count)=>{
@@ -217,6 +226,7 @@ inputBox.addEventListener("keypress", (e)=>{
         socket.on("disconnectedUser",(condition)=>{
             // console.log("Someone Disconnected");
             if(condition){
+                sendButton.disabled=true;
                 inputBox.disabled=true;
             socket.disconnect();
                 new_skipButton.innerText="New";

@@ -1,7 +1,7 @@
 const mongoose=require("mongoose");
 require('dotenv').config();
-//   const  mongoURL=process.env.mongoDBOnline;
-const mongoURL=process.env.mongoDBOffline;
+  const  mongoURL=process.env.mongoDBOnline;
+// const mongoURL=process.env.mongoDBOffline;
 const  connect= mongoose.connect(mongoURL);
 
 

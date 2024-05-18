@@ -39,6 +39,8 @@ gap: 3px;
 
 
 
+
+
 /* Chat Section */
 footer{
     height: 10%;
@@ -55,6 +57,10 @@ div.chatSection>button{
     height: 100%;
     width: 10%;
 }
+
+/* send button */
+
+
 div.chatSection>input.inputBox{
     height: 100%;
     width: 80%;

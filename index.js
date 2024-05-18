@@ -52,61 +52,52 @@ const io = new Server(server);
 
 // socket io on connection
 io.on("connection", (socket) => {
-  // console.log(socket.conn);
-
+//state of app
   console.log( timestamp(),"Connected:", socket.id);
  
   textChatUsersArray.push(socket.id);
   console.log(`Total users=${textChatUsersArray.length}`);
   io.emit("ttl", textChatUsersArray.length);
 
+  //========checking if any strangers are availbale or not===========
+  const user=textChatUsersArray.indexOf(socket.id);
+
+if(user%2!==0 && textChatUsersArray[user-1]){
+  socket.to(textChatUsersArray[user-1]).emit("strangerConnection", true);
+  socket.to(textChatUsersArray[user]).emit("strangerConnection", true);
+}
+
+socket.on("connectionReq",(condition)=>{ 
+  const user=textChatUsersArray.indexOf(socket.id);
+  socket.to(textChatUsersArray[user+1]).emit("strangerConnection", true);
+  
+
+});
+
+
+
   socket.on("user-message", (message) => {
+
+    //================new logic================
+    const user=textChatUsersArray.indexOf(socket.id);
+    console.log("Message by ",user,":", message);
+  if(user%2===0){
+      socket.to(textChatUsersArray[user+1]).emit("message", message);
+      
+    }
+    else{
+      
+      socket.to(textChatUsersArray[user-1]).emit("message", message);
     
-if(socket.id===textChatUsersArray[0]){
-  
-    console.log("User Message:", message);
-    // sends data to clients
-   
-    socket.to(textChatUsersArray[1]).emit("message", message);
   }
+    //================old logic================
+// if(socket.id===textChatUsersArray[0]){
   
-if(socket.id===textChatUsersArray[1]){
-  
-    console.log("User Message:", message);
-    // sends data to clients
+//     console.log("User Message:", message);
+//     // sends data to clients
    
-    socket.to(textChatUsersArray[0]).emit("message", message);
-  }
-if(socket.id===textChatUsersArray[2]){
-  
-    console.log("User Message:", message);
-    // sends data to clients
-   
-    socket.to(textChatUsersArray[3]).emit("message", message);
-  }
-  
-if(socket.id===textChatUsersArray[3]){
-  
-    console.log("User Message:", message);
-    // sends data to clients
-   
-    socket.to(textChatUsersArray[2]).emit("message", message);
-  }
-if(socket.id===textChatUsersArray[4]){
-  
-    console.log("User Message:", message);
-    // sends data to clients
-   
-    socket.to(textChatUsersArray[5]).emit("message", message);
-  }
-  
-if(socket.id===textChatUsersArray[5]){
-  
-    console.log("User Message:", message);
-    // sends data to clients
-   
-    socket.to(textChatUsersArray[4]).emit("message", message);
-  }
+//     socket.to(textChatUsersArray[1]).emit("message", message);
+//   }
   });
   //Message emit
 
@@ -114,43 +105,26 @@ if(socket.id===textChatUsersArray[5]){
 // socket  on disconnect 
 socket.on("disconnecting", (reason) => {
 
-  if(socket.id===textChatUsersArray[0]){
+  //===========new logic===========
+  const user=textChatUsersArray.indexOf(socket.id);
+   console.log(user," Disconnected");
+  if(user%2===0){
   
-    // sends data to clients
-   console.log("Disconnected");
-    socket.to(textChatUsersArray[1]).emit("disconnectedUser", true);
-  }
-  if(socket.id===textChatUsersArray[1]){
+      socket.to(textChatUsersArray[user+1]).emit("disconnectedUser", true);
+      
+    }
+    else{
   
-    // sends data to clients
-   console.log("Disconnected");
-    socket.to(textChatUsersArray[0]).emit("disconnectedUser", true);
+      socket.to(textChatUsersArray[user-1]).emit("disconnectedUser", true);
+    
   }
-  if(socket.id===textChatUsersArray[2]){
+//============old logic==========
+  // if(socket.id===textChatUsersArray[0]){
   
-    // sends data to clients
-   console.log("Disconnected");
-    socket.to(textChatUsersArray[3]).emit("disconnectedUser", true);
-  }
-  if(socket.id===textChatUsersArray[3]){
-  
-    // sends data to clients
-   console.log("Disconnected");
-    socket.to(textChatUsersArray[2]).emit("disconnectedUser", true);
-  }
-  if(socket.id===textChatUsersArray[4]){
-  
-    // sends data to clients
-   console.log("Disconnected");
-    socket.to(textChatUsersArray[5]).emit("disconnectedUser", true);
-  }
-  if(socket.id===textChatUsersArray[5]){
-  
-    // sends data to clients
-   console.log("Disconnected");
-    socket.to(textChatUsersArray[4]).emit("disconnectedUser", true);
-  }
-
+  //   // sends data to clients
+  //  console.log("Disconnected");
+  //   socket.to(textChatUsersArray[1]).emit("disconnectedUser", true);
+  // }
 
   console.log(textChatUsersArray);
   // console.log(reason);
