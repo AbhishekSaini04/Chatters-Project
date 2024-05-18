@@ -2,13 +2,13 @@
 const http = require("http");
 const { Server } = require("socket.io");
 const express = require("express");
-require('dotenv').config()
+require("dotenv").config();
 
 // express APP
 const app = express();
 
 // Chatters Port
-const PORT =process.env.PORT || 5001;
+const PORT = process.env.PORT || 5001;
 
 // created HTTP sever
 const server = http.createServer(app);
@@ -19,16 +19,14 @@ app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 
-
 // Declareration
-let textChatUsersArray=[""];
-let noneUser=textChatUsersArray.indexOf("");
+let textChatUsersArray = [""];
+let noneUser = textChatUsersArray.indexOf("");
 // console.log(noneUser);
-if(noneUser==0){ 
-  textChatUsersArray.splice(noneUser)
+if (noneUser == 0) {
+  textChatUsersArray.splice(noneUser);
 }
 let videoChatUsersArray;
-
 
 // helper functions for logs
 function fillZero(val) {
@@ -52,108 +50,81 @@ const io = new Server(server);
 
 // socket io on connection
 io.on("connection", (socket) => {
-//state of app
-  console.log( timestamp(),"Connected:", socket.id);
- 
+  //state of app
+  console.log(timestamp(), "Connected:", socket.id);
+
   textChatUsersArray.push(socket.id);
   console.log(`Total users=${textChatUsersArray.length}`);
   io.emit("ttl", textChatUsersArray.length);
 
   //========checking if any strangers are availbale or not===========
-  const user=textChatUsersArray.indexOf(socket.id);
+  const user = textChatUsersArray.indexOf(socket.id);
 
-if(user%2!==0 && textChatUsersArray[user-1]){
-  socket.to(textChatUsersArray[user-1]).emit("strangerConnection", true);
-  socket.to(textChatUsersArray[user]).emit("strangerConnection", true);
-}
-
-socket.on("connectionReq",(condition)=>{ 
-  if(condition){
-
-    const user=textChatUsersArray.indexOf(socket.id);
-    socket.to(textChatUsersArray[user+1]).emit("strangerConnection", true);
+  if (user % 2 !== 0 && textChatUsersArray[user - 1]) {
+    socket.to(textChatUsersArray[user - 1]).emit("strangerConnection", true);
+    socket.to(textChatUsersArray[user]).emit("strangerConnection", true);
   }
-  
 
-});
-
-
+  socket.on("connectionReq", (condition) => {
+    if (condition) {
+      const user = textChatUsersArray.indexOf(socket.id);
+      socket.to(textChatUsersArray[user + 1]).emit("strangerConnection", true);
+    }
+  });
 
   socket.on("user-message", (message) => {
-
     //================new logic================
-    const user=textChatUsersArray.indexOf(socket.id);
-    console.log("Message by ",user,":", message);
-  if(user%2===0){
-      socket.to(textChatUsersArray[user+1]).emit("message", message);
-      
+    const user = textChatUsersArray.indexOf(socket.id);
+    console.log("Message by ", user, ":", message);
+    if (user % 2 === 0) {
+      socket.to(textChatUsersArray[user + 1]).emit("message", message);
+    } else {
+      socket.to(textChatUsersArray[user - 1]).emit("message", message);
     }
-    else{
-      
-      socket.to(textChatUsersArray[user-1]).emit("message", message);
-    
-  }
     //================old logic================
-// if(socket.id===textChatUsersArray[0]){
-  
-//     console.log("User Message:", message);
-//     // sends data to clients
-   
-//     socket.to(textChatUsersArray[1]).emit("message", message);
-//   }
+    // if(socket.id===textChatUsersArray[0]){
+
+    //     console.log("User Message:", message);
+    //     // sends data to clients
+
+    //     socket.to(textChatUsersArray[1]).emit("message", message);
+    //   }
   });
   //Message emit
 
-
-// socket  on disconnect 
-socket.on("disconnecting", (reason) => {
-
-  //===========new logic===========
-  const user=textChatUsersArray.indexOf(socket.id);
-   console.log(user," Disconnected");
-  if(user%2===0){
-  
-      socket.to(textChatUsersArray[user+1]).emit("disconnectedUser", true);
-      
+  // socket  on disconnect
+  socket.on("disconnecting", (reason) => {
+    //===========new logic===========
+    const user = textChatUsersArray.indexOf(socket.id);
+    console.log(user, " Disconnected");
+    if (user % 2 === 0) {
+      socket.to(textChatUsersArray[user + 1]).emit("disconnectedUser", true);
+    } else {
+      socket.to(textChatUsersArray[user - 1]).emit("disconnectedUser", true);
     }
-    else{
-  
-      socket.to(textChatUsersArray[user-1]).emit("disconnectedUser", true);
-    
-  }
-//============old logic==========
-  // if(socket.id===textChatUsersArray[0]){
-  
-  //   // sends data to clients
-  //  console.log("Disconnected");
-  //   socket.to(textChatUsersArray[1]).emit("disconnectedUser", true);
-  // }
+    //============old logic==========
+    // if(socket.id===textChatUsersArray[0]){
 
-  console.log(textChatUsersArray);
-  // console.log(reason);
-  console.log( timestamp(),"Disconnected:",socket.id);
-  textChatUsersArray=textChatUsersArray.filter((item)=>{
-    return item!==socket.id;
-  });
- 
-  console.log(textChatUsersArray);
+    //   // sends data to clients
+    //  console.log("Disconnected");
+    //   socket.to(textChatUsersArray[1]).emit("disconnectedUser", true);
+    // }
 
-  console.log(`Total users=${textChatUsersArray.length}`);
-  io.emit("ttl",textChatUsersArray.length);
-    
-    
-    
+    console.log(textChatUsersArray);
+    // console.log(reason);
+    console.log(timestamp(), "Disconnected:", socket.id);
+    textChatUsersArray = textChatUsersArray.filter((item) => {
+      return item !== socket.id;
+    });
+
+    console.log(textChatUsersArray);
+
+    console.log(`Total users=${textChatUsersArray.length}`);
+    io.emit("ttl", textChatUsersArray.length);
   });
-  
-  
 });
 
-
-
-
 console.log("Current Time:", timestamp());
-
-
 
 // ------------all routes-------------
 
