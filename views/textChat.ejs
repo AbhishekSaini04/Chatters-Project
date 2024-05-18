@@ -90,7 +90,8 @@
 
         <!-- main section -->
          <div class="messageBox div">
-            <p class="usersCount">0 live</p>
+          <span class="usersCountSpan"><p  style="color: red;" class="usersCount">0</p>live</span> 
+          <span  class="commentsSpan"> <p style="color: red;" class="comments" ></p>Disconnected</span>
          </div>
     
         <footer>
@@ -124,6 +125,10 @@
             const sendButton=document.getElementById("sendBtn");
             const inputBox=document.getElementById("message");
             const usersCount=document.querySelector(".usersCount");
+            const commentsPara=document.querySelector(".comments");
+            const commentsSpan=document.querySelector(".commentsSpan");
+
+            // console.log(commentsPara);
             // console.log("Hello",usersCount);
          
 
@@ -160,12 +165,16 @@ new_skipButton.addEventListener("click",()=>{
         
         socket.connect();
         inputBox.disabled=false;
+        commentsSpan.style.display="none";
+            commentsPara.innerText="";
        
     }else{
 
         if(new_skipButton.classList[1]==="skip"){
             inputBox.disabled=true;
             socket.disconnect();
+            commentsSpan.style.display="flex";
+            commentsPara.innerText="You";
                 new_skipButton.innerText="New";
                 new_skipButton.classList.remove("skip");
                 new_skipButton.classList.add("new");
@@ -198,16 +207,28 @@ inputBox.addEventListener("keypress", (e)=>{
             chatDiv.appendChild(newDiv);
         });
       
-
+// users count
         socket.on("ttl",(count)=>{
-            usersCount.innerText=count+" live";
+            usersCount.innerText=count;
             console.log(count);
         });
-        socket.on("ttll",(count)=>{
-            usersCount.innerText=count+" live";
-            console.log(count);
+     
+//what if stranger disconnects
+        socket.on("disconnectedUser",(condition)=>{
+            // console.log("Someone Disconnected");
+            if(condition){
+                inputBox.disabled=true;
+            socket.disconnect();
+                new_skipButton.innerText="New";
+                new_skipButton.classList.remove("skip");
+                new_skipButton.classList.add("new");
+            
+                socket.disconnect();
+                commentsSpan.style.display="flex";
+            commentsPara.innerText="Stranger";
+            }
         });
-
+     
 
 
 

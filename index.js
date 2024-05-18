@@ -52,32 +52,117 @@ const io = new Server(server);
 
 // socket io on connection
 io.on("connection", (socket) => {
+  // console.log(socket.conn);
 
-  console.log("User connected with id:", socket.id);
+  console.log( timestamp(),"Connected:", socket.id);
  
   textChatUsersArray.push(socket.id);
   console.log(`Total users=${textChatUsersArray.length}`);
   io.emit("ttl", textChatUsersArray.length);
 
-
-  //Message emit
   socket.on("user-message", (message) => {
+    
+if(socket.id===textChatUsersArray[0]){
+  
     console.log("User Message:", message);
     // sends data to clients
-    // io.emit("message", message);
-    socket.broadcast.emit("message", message);
+   
+    socket.to(textChatUsersArray[1]).emit("message", message);
+  }
+  
+if(socket.id===textChatUsersArray[1]){
+  
+    console.log("User Message:", message);
+    // sends data to clients
+   
+    socket.to(textChatUsersArray[0]).emit("message", message);
+  }
+if(socket.id===textChatUsersArray[2]){
+  
+    console.log("User Message:", message);
+    // sends data to clients
+   
+    socket.to(textChatUsersArray[3]).emit("message", message);
+  }
+  
+if(socket.id===textChatUsersArray[3]){
+  
+    console.log("User Message:", message);
+    // sends data to clients
+   
+    socket.to(textChatUsersArray[2]).emit("message", message);
+  }
+if(socket.id===textChatUsersArray[4]){
+  
+    console.log("User Message:", message);
+    // sends data to clients
+   
+    socket.to(textChatUsersArray[5]).emit("message", message);
+  }
+  
+if(socket.id===textChatUsersArray[5]){
+  
+    console.log("User Message:", message);
+    // sends data to clients
+   
+    socket.to(textChatUsersArray[4]).emit("message", message);
+  }
   });
+  //Message emit
 
 
 // socket  on disconnect 
 socket.on("disconnecting", (reason) => {
+
+  if(socket.id===textChatUsersArray[0]){
+  
+    // sends data to clients
+   console.log("Disconnected");
+    socket.to(textChatUsersArray[1]).emit("disconnectedUser", true);
+  }
+  if(socket.id===textChatUsersArray[1]){
+  
+    // sends data to clients
+   console.log("Disconnected");
+    socket.to(textChatUsersArray[0]).emit("disconnectedUser", true);
+  }
+  if(socket.id===textChatUsersArray[2]){
+  
+    // sends data to clients
+   console.log("Disconnected");
+    socket.to(textChatUsersArray[3]).emit("disconnectedUser", true);
+  }
+  if(socket.id===textChatUsersArray[3]){
+  
+    // sends data to clients
+   console.log("Disconnected");
+    socket.to(textChatUsersArray[2]).emit("disconnectedUser", true);
+  }
+  if(socket.id===textChatUsersArray[4]){
+  
+    // sends data to clients
+   console.log("Disconnected");
+    socket.to(textChatUsersArray[5]).emit("disconnectedUser", true);
+  }
+  if(socket.id===textChatUsersArray[5]){
+  
+    // sends data to clients
+   console.log("Disconnected");
+    socket.to(textChatUsersArray[4]).emit("disconnectedUser", true);
+  }
+
+
+  console.log(textChatUsersArray);
   // console.log(reason);
-  console.log("User Disconnected with id:"+socket.id);
-  let userWithID=textChatUsersArray.indexOf(socket.id);
-  io.emit("ttll",textChatUsersArray.length);
-   
-    textChatUsersArray.splice(userWithID);
-    console.log(`Total users=${textChatUsersArray.length}`);
+  console.log( timestamp(),"Disconnected:",socket.id);
+  textChatUsersArray=textChatUsersArray.filter((item)=>{
+    return item!==socket.id;
+  });
+ 
+  console.log(textChatUsersArray);
+
+  console.log(`Total users=${textChatUsersArray.length}`);
+  io.emit("ttl",textChatUsersArray.length);
     
     
     
@@ -101,6 +186,7 @@ app.use("/", require("./routes/homeRoute/homePOST"));
 
 // text-chat route
 app.use("/text-chat", require("./routes/textChatRoute/textChatGET"));
+
 app.use("/text-chat", require("./routes/textChatRoute/textChatPOST"));
 
 // video-chat route

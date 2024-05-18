@@ -23,7 +23,18 @@ div.messageBox{
     
 }
 
+/* Users count Span */
+span.usersCountSpan{
+    display: flex;
+    gap: 3px;
 
+}
+/* Comment span */
+span.commentsSpan{
+display: none;
+gap: 3px;
+
+}
 
 
 
