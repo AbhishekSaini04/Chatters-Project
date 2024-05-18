@@ -68,8 +68,11 @@ if(user%2!==0 && textChatUsersArray[user-1]){
 }
 
 socket.on("connectionReq",(condition)=>{ 
-  const user=textChatUsersArray.indexOf(socket.id);
-  socket.to(textChatUsersArray[user+1]).emit("strangerConnection", true);
+  if(condition){
+
+    const user=textChatUsersArray.indexOf(socket.id);
+    socket.to(textChatUsersArray[user+1]).emit("strangerConnection", true);
+  }
   
 
 });
