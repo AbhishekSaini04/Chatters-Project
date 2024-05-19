@@ -104,7 +104,9 @@
 const socket = io();
     //   socket.disconnect();
 
-
+const options={
+mime:"video/mp4"
+};
         const yourVideo=document.querySelector(".you");
         const strangerVideo=document.querySelector(".stranger");
         yourVideo.muted=true;
@@ -121,26 +123,34 @@ function addVideoStream(video,stream){
         navigator.mediaDevices.getUserMedia({
             video:true,
             audio:true
-        }).then(async(stream)=>{
+        }).then((stream)=>{
             // added our video to the screen
             addVideoStream(yourVideo,stream);
             // console.log(stream);
             // socket.emit("stream",stream);
-            const media=await new MediaRecorder(stream);
-            console.log(media);
-        //    console.log(media.ondataavailable);
-            // media.ondataavailable=function (e){
-            //     socket.emit("stream",e.data);
-               
-            //     console.log(e);
-            // }
 
+            const media=new MediaRecorder(stream,options);
+            
+            
+            //    console.log(media.ondataavailable);
+            media.ondataavailable=function (e){
+                socket.emit("stream",e.data);
+                
+                // console.log("data coming from seever",e);
+            }
+            
+            media.start(100);
         });
 
 
 //  adding stranger's video to screen
 socket.on("strangerStream",(stream)=>{
-    addVideoStream(strangerVideo,stream);
+ 
+    const blob = new Blob([stream], { type: 'video/mp4' });
+    const blobURL = URL.createObjectURL(blob);
+    strangerVideo.srcObject = blobURL;
+ 
+  
 });
     </script>
 </body>

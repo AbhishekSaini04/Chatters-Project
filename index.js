@@ -126,6 +126,7 @@ io.on("connection", (socket) => {
 
   // for video-chat
   socket.on("stream",(stream)=>{
+    // console.log("video data:",stream);
     socket.broadcast.emit("strangerStream",stream);
 
   })
