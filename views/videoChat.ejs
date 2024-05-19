@@ -90,6 +90,58 @@
         </nav>
     </header>
 
+    <main>
+<div class="mainScreen">
+    <video  class="you"></video>
+    <video  class="stranger"></video>
+</div>
+
+    </main>
     
+    <script src="/js/onClick.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+    <script javascript>
+const socket = io();
+    //   socket.disconnect();
+
+
+        const yourVideo=document.querySelector(".you");
+        const strangerVideo=document.querySelector(".stranger");
+        yourVideo.muted=true;
+        // yourVideo.controls=true;
+
+        // function to add video To screen
+function addVideoStream(video,stream){
+    video.srcObject=stream;
+    video.addEventListener("loadedmetadata",()=>{
+        video.play();
+    })
+};
+// checking or getting permissions
+        navigator.mediaDevices.getUserMedia({
+            video:true,
+            audio:true
+        }).then(async(stream)=>{
+            // added our video to the screen
+            addVideoStream(yourVideo,stream);
+            // console.log(stream);
+            // socket.emit("stream",stream);
+            const media=await new MediaRecorder(stream);
+            console.log(media);
+        //    console.log(media.ondataavailable);
+            // media.ondataavailable=function (e){
+            //     socket.emit("stream",e.data);
+               
+            //     console.log(e);
+            // }
+
+        });
+
+
+//  adding stranger's video to screen
+socket.on("strangerStream",(stream)=>{
+    addVideoStream(strangerVideo,stream);
+});
+    </script>
 </body>
 </html>

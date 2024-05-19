@@ -122,9 +122,24 @@ io.on("connection", (socket) => {
     console.log(`Total users=${textChatUsersArray.length}`);
     io.emit("ttl", textChatUsersArray.length);
   });
+
+
+  // for video-chat
+  socket.on("stream",(stream)=>{
+    socket.broadcast.emit("strangerStream",stream);
+
+  })
 });
 
 console.log("Current Time:", timestamp());
+
+
+
+
+
+
+
+
 
 // ------------all routes-------------
 
