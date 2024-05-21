@@ -154,8 +154,8 @@ app.use("/text-chat", require("./routes/textChatRoute/textChatGET"));
 app.use("/text-chat", require("./routes/textChatRoute/textChatPOST"));
 
 // video-chat route
-app.use("/video-chat", require("./routes/videoChatRoute/videoChatGET"));
-app.use("/video-chat", require("./routes/videoChatRoute/videoChatPOST"));
+// app.use("/video-chat", require("./routes/videoChatRoute/videoChatGET"));
+// app.use("/video-chat", require("./routes/videoChatRoute/videoChatPOST"));
 
 // signup route
 app.use("/signup", require("./routes/signupRoute/signupGET"));

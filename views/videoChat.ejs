@@ -139,18 +139,25 @@ function addVideoStream(video,stream){
                 // console.log("data coming from seever",e);
             }
             
-            media.start(100);
+            media.start(1000);
         });
 
 
+
+const bufferArray=[];
 //  adding stranger's video to screen
 socket.on("strangerStream",(stream)=>{
+    bufferArray.push(stream);
+    // var temp=stream;
+    
+    const blob=new Blob(bufferArray,{type:"video/mp4"});
+    strangerVideo.src=URL.createObjectURL(blob);
+    // strangerVideo.play();
+console.log("blob:",blob);
+console.log("arrayBuffer",bufferArray);
+    
  
-    const blob = new Blob([stream], { type: 'video/mp4' });
-    const blobURL = URL.createObjectURL(blob);
-    strangerVideo.srcObject = blobURL;
- 
-  
+  bufferArray.shift()
 });
     </script>
 </body>
