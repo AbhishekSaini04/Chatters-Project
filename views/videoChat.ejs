@@ -98,6 +98,7 @@
 
     </main>
     
+    
     <script src="/js/onClick.js"></script>
 <script src="/socket.io/socket.io.js"></script>
     <script javascript>
@@ -144,20 +145,17 @@ function addVideoStream(video,stream){
 
 
 
-const bufferArray=[];
+const bufferArray = [];
 //  adding stranger's video to screen
-socket.on("strangerStream",(stream)=>{
-    bufferArray.push(stream);
-    // var temp=stream;
-    
-    const blob=new Blob(bufferArray,{type:"video/mp4"});
-    strangerVideo.src=URL.createObjectURL(blob);
-    // strangerVideo.play();
-console.log("blob:",blob);
-console.log("arrayBuffer",bufferArray);
-    
- 
-  bufferArray.shift()
+socket.on("strangerStream", (stream) => {
+  bufferArray.push(new Uint8Array(stream));
+  const blob = new Blob(bufferArray, { type: "video/mp4" });
+  const url = URL.createObjectURL(blob);
+  strangerVideo.src = url;
+  strangerVideo.play();
+  console.log("blob:", blob);
+  console.log("arrayBuffer", bufferArray);
+  bufferArray.shift();
 });
     </script>
 </body>

@@ -126,7 +126,7 @@ io.on("connection", (socket) => {
 
   // for video-chat
   socket.on("stream",(stream)=>{
-    // console.log("video data:",stream);
+     console.log("video data:",stream);
     socket.broadcast.emit("strangerStream",stream);
 
   })
@@ -154,8 +154,8 @@ app.use("/text-chat", require("./routes/textChatRoute/textChatGET"));
 app.use("/text-chat", require("./routes/textChatRoute/textChatPOST"));
 
 // video-chat route
-// app.use("/video-chat", require("./routes/videoChatRoute/videoChatGET"));
-// app.use("/video-chat", require("./routes/videoChatRoute/videoChatPOST"));
+ app.use("/video-chat", require("./routes/videoChatRoute/videoChatGET"));
+ app.use("/video-chat", require("./routes/videoChatRoute/videoChatPOST"));
 
 // signup route
 app.use("/signup", require("./routes/signupRoute/signupGET"));
