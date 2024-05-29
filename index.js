@@ -158,12 +158,12 @@ app.use("/text-chat", require("./routes/textChatRoute/textChatPOST"));
  app.use("/video-chat", require("./routes/videoChatRoute/videoChatPOST"));
 
 // signup route
-app.use("/signup", require("./routes/signupRoute/signupGET"));
-app.use("/signup", require("./routes/signupRoute/signupPOST"));
+// app.use("/signup", require("./routes/signupRoute/signupGET"));
+// app.use("/signup", require("./routes/signupRoute/signupPOST"));
 
-// login route
-app.use("/login", require("./routes/loginRoute/loginGET"));
-app.use("/login", require("./routes/loginRoute/loginPOST"));
+// // login route
+// app.use("/login", require("./routes/loginRoute/loginGET"));
+// app.use("/login", require("./routes/loginRoute/loginPOST"));
 
 // this is for for all unsolved Routes
 app.use("*", require("./routes/routeNotFound/routeNotFoundGET"));
