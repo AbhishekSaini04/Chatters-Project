@@ -118,29 +118,33 @@
     </header>
 
     <!-- main section -->
-    <div class="messageBox div">
-      <span class="usersCountSpan"
+    <span class="usersCountSpan"
         ><p style="color: red" class="usersCount">0</p>
-        live</span
+      Live</span
       >
+    <div class="messageBox div">
+      
+    
+        
+      </div>
       <span class="commentsSpan">
         <p style="color: red" class="comments"></p>
-        Disconnected</span
-      >
-    </div>
+        -Disconnected!</span >
+  
+      
 
     <footer>
       <div class="chatSection">
-        <button class="new-skipButton new">New</button
-        ><input
+        <button class="new-skipButton new">New</button>
+        <input
           readonly
           disabled
           type="text"
           name
           placeholder="Message"
           class="inputBox"
-          id="message"
-        /><button disabled id="sendBtn">send</button>
+          id="message"/>
+        <button disabled id="sendBtn" class="send-button">Send</button>
       </div>
     </footer>
 
@@ -178,6 +182,8 @@
           console.log(message);
           // sending message to server
           socket.emit("user-message", message);
+          inputBox.value="";
+          inputBox.placeholder = "Message";
           // new div creation
           const newDiv = document.createElement("div");
           newDiv.innerText = "You:" + message;
@@ -188,29 +194,32 @@
 
       // skip or new button javascript
       new_skipButton.addEventListener("click", () => {
-        // console.log(
-        //     new_skipButton.classList
-        // );
+       
         if (new_skipButton.classList[1] === "new") {
           new_skipButton.innerText = "Skip";
           new_skipButton.classList.remove("new");
           new_skipButton.classList.add("skip");
+          socket.emit("textChat",true);
 
           socket.connect();
+          inputBox.value="";
           inputBox.placeholder = "Waiting For stranger";
           inputBox.disabled = false;
           commentsSpan.style.display = "none";
           commentsPara.innerText = "";
+          chatDiv.innerHTML="";
         } else {
           if (new_skipButton.classList[1] === "skip") {
             sendButton.disabled = true;
             inputBox.disabled = true;
             socket.disconnect();
+            inputBox.placeholder = "Message";
             commentsSpan.style.display = "flex";
             commentsPara.innerText = "You";
             new_skipButton.innerText = "New";
             new_skipButton.classList.remove("skip");
             new_skipButton.classList.add("new");
+            inputBox.value="";
           }
         }
       });
@@ -227,19 +236,20 @@
 
       // send button enable/stranger connected
       socket.on("strangerConnection", (condition) => {
-        console.log("i'm condition ", condition);
+        // console.log("i'm condition ", condition);
         if (condition) {
+          socket.emit("connectionReq", true);
           inputBox.readOnly = false;
-          inputBox.placeholder = "Message";
+          inputBox.placeholder = "Stranger Connected,Say Hiiii";
 
           sendButton.disabled = !condition;
-          socket.emit("connectionReq", true);
         }
       });
 
       // message recieve from the sever
       socket.on("message", (msage) => {
         console.log("Message from server", msage);
+        inputBox.placeholder = "Message";
 
         const newDiv = document.createElement("div");
         newDiv.innerText = "Stranger:" + msage;
@@ -259,14 +269,17 @@
           inputBox.readOnly = true;
           sendButton.disabled = true;
           inputBox.disabled = true;
-          socket.disconnect();
           new_skipButton.innerText = "New";
           new_skipButton.classList.remove("skip");
           new_skipButton.classList.add("new");
-
-          socket.disconnect();
+          inputBox.placeholder = "Message";
+          // socket.disconnect();
           commentsSpan.style.display = "flex";
           commentsPara.innerText = "Stranger";
+          inputBox.value="";
+         
+     
+          socket.disconnect();
         }
       });
     </script>
