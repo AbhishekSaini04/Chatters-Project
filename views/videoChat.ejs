@@ -207,13 +207,26 @@
         }
       });
 
-      //  adding stranger's video to screen
-      socket.on("strangerStream", (stream) => {
-        // const blob = new Blob([stream], { type: 'video/mpeg4' });
-        // const blobURL = URL.createObjectURL(blob);
-        // strangerVideo.src = blobURL;
-        console.log("data");
-      });
+      // //  adding stranger's video to screen
+      // socket.on("strangerStream", (stream) => {
+      //   const blob = new Blob([stream], { type: 'video/mp4' });
+      //   const blobURL = URL.createObjectURL(blob);
+      //   strangerVideo.src = blobURL;
+      //   // console.log("data");
+      // });
+      const bufferArray = [];
+//  adding stranger's video to screen
+socket.on("strangerStream", (stream) => {
+  bufferArray.push(  new Uint8Array(stream));
+
+  const blob = new Blob(bufferArray, { type: "video/mp4" });
+  const url = URL.createObjectURL(blob);
+  strangerVideo.src = url;
+  console.log("blob:", blob);
+  console.log("arrayBuffer", bufferArray);
+  bufferArray.shift();
+});
+strangerVideo.play();
     </script>
   </body>
 </html>

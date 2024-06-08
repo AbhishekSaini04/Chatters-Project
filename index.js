@@ -155,7 +155,7 @@ io.on("connection", (socket) => {
   socket.on("stream", (stream) => {
     //================new logic================
     const user = videoChatUsersArray.indexOf(socket.id);
-    console.log(typeof stream);
+    // console.log(typeof stream);
 
     if (user % 2 === 0) {
       socket.to(videoChatUsersArray[user + 1]).emit("strangerStream", stream);

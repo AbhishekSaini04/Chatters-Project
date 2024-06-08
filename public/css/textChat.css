@@ -4,7 +4,8 @@
 
 }
 body{
-    height: 100vh;
+    height: 97vh;
+    width: 100vw;
     color: aliceblue;
 }
 
@@ -59,16 +60,15 @@ span.usersCountSpan{
 /* Comment span */
 span.commentsSpan{
     position: absolute;
-    width: 20vw;
-    color: rgb(248, 7, 7);
+   color: rgb(248, 7, 7);
     /* border: 2px solid red; */
 display: none;
 gap: 3px;
 /* align-items: center;
 justify-content: center; */
-top: 445px;
-    left: 580px;
-    font-size: 25px;
+top: 46%;
+  left: 41%;
+    font-size: xx-large;
 
 }
 p.comments{
@@ -83,21 +83,22 @@ color: red;
 /* Chat Section */
 footer{
    
-    height: 10%;
+    height: 11.3%;
     width: 100%;
-   
+    margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
     
 }
 div.chatSection{
     display: flex;
-    display: inline-block;
     /* justify-content: center; */
-    padding-left: 55px  ;
-    margin-top: 15px;
+ 
     justify-content: space-between;
     /* border: 2px solid red; */
     height: 100%;
-    width: 100%;
+    width: 94%;
     font-size: 25px;
     
 }
@@ -112,7 +113,7 @@ div.chatSection>button{
 div.chatSection>input.inputBox{
     padding: 8px;
     height: 100%;
-    width: 75%;
+    width: 80%;
     font-family: "poppins", sans-serif;
     font-size: larger;
     border: 2px solid rgb(0, 0, 0);
@@ -142,4 +143,31 @@ div.chatSection>input.inputBox{
     /* font-size: 20px; */
     border: 0px;
     
+}
+
+
+@media screen and (max-width: 582px){
+    div.chatSection > button {
+        height: 69%;
+        width: 20%;
+        font-size: medium;
+      }
+      div.chatSection > input.inputBox {
+        padding: 4px;
+        font-size: medium;
+        height: 69%;}
+body{
+    position:fixed;
+}
+span.commentsSpan{
+    font-size: large;
+}
+span.commentsSpan{
+    left: 36%;}
+}
+
+@media screen and (max-width: 400px){
+    span.commentsSpan{
+        left: 34%;}
+
 }
