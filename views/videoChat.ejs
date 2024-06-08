@@ -122,7 +122,7 @@
       </div>
       <button class="newSkipButton new">New</button>
     </main>
-
+    
     <script src="/js/onClick.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script javascript>
@@ -158,73 +158,28 @@
           // console.log(stream);
           // socket.emit("stream",stream);
 
-          const media = new MediaRecorder(stream, options);
-
-          //    console.log(media.ondataavailable);
-          media.ondataavailable = function (e) {
-            socket.emit("stream", e.data);
-
-            // console.log("data coming from seever",e);
-          };
-
-          media.start(100);
+            const media=new MediaRecorder(stream,options);
+            
+            
+            //    console.log(media.ondataavailable);
+            media.ondataavailable=function (e){
+                socket.emit("stream",e.data);
+                
+                // console.log("data coming from seever",e);
+            }
+            
+            media.start(100);
         });
 
-      new_skipButton.addEventListener("click", () => {
-        if (new_skipButton.classList[1] === "new") {
-          new_skipButton.innerText = "Skip";
-          new_skipButton.classList.remove("new");
-          new_skipButton.classList.add("skip");
-          socket.emit("videoChat", true);
-          socket.connect();
-        } else {
-          if (new_skipButton.classList[1] === "skip") {
-            new_skipButton.innerText = "New";
-            new_skipButton.classList.remove("skip");
-            new_skipButton.classList.add("new");
-            socket.emit("videoChat", false);
-            socket.disconnect();
-          }
-        }
-      });
 
-      // send button enable/stranger connected
-      socket.on("strangerConnection", (condition) => {
-        // console.log("i'm condition ", condition);
-        if (condition) {
-          socket.emit("connectionReq", true);
-        }
-      });
-
-      // stranger disconnects
-      socket.on("disconnectedUser", (condition) => {
-        // console.log("Someone Disconnected");
-        if (condition) {
-          socket.disconnect();
-          new_skipButton.innerText = "New";
-          new_skipButton.classList.remove("skip");
-          new_skipButton.classList.add("new");
-        }
-      });
-
-      // //  adding stranger's video to screen
-      // socket.on("strangerStream", (stream) => {
-      //   const blob = new Blob([stream], { type: 'video/mp4' });
-      //   const blobURL = URL.createObjectURL(blob);
-      //   strangerVideo.src = blobURL;
-      //   // console.log("data");
-      // });
-      const bufferArray = [];
 //  adding stranger's video to screen
-socket.on("strangerStream", (stream) => {
-  bufferArray.push(  new Uint8Array(stream));
-
-  const blob = new Blob(bufferArray, { type: "video/mp4" });
-  const url = URL.createObjectURL(blob);
-  strangerVideo.src = url;
-  console.log("blob:", blob);
-  console.log("arrayBuffer", bufferArray);
-  bufferArray.shift();
+socket.on("strangerStream",(stream)=>{
+ 
+    const blob = new Blob([stream], { type: 'video/mp4' });
+    const blobURL = URL.createObjectURL(blob);
+    strangerVideo.srcObject = blobURL;
+ 
+  
 });
 strangerVideo.play();
     </script>

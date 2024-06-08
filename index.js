@@ -292,10 +292,10 @@ io.on("connection", (socket) => {
     io.emit("ttl", textChatUsersArray.length + videoChatUsersArray.length);
   });
 
-  // old for video-chat
-  // socket.on("stream",(stream)=>{
-  //   // console.log("video data:",stream);
-  //   socket.broadcast.emit("strangerStream",stream);
+  // for video-chat
+  socket.on("stream",(stream)=>{
+    // console.log("video data:",stream);
+    socket.broadcast.emit("strangerStream",stream);
 
   // })
 });
@@ -314,16 +314,16 @@ app.use("/text-chat", require("./routes/textChatRoute/textChatGET"));
 app.use("/text-chat", require("./routes/textChatRoute/textChatPOST"));
 
 // video-chat route
-app.use("/video-chat", require("./routes/videoChatRoute/videoChatGET"));
-app.use("/video-chat", require("./routes/videoChatRoute/videoChatPOST"));
+ app.use("/video-chat", require("./routes/videoChatRoute/videoChatGET"));
+ app.use("/video-chat", require("./routes/videoChatRoute/videoChatPOST"));
 
 // signup route
-app.use("/signup", require("./routes/signupRoute/signupGET"));
-app.use("/signup", require("./routes/signupRoute/signupPOST"));
+// app.use("/signup", require("./routes/signupRoute/signupGET"));
+// app.use("/signup", require("./routes/signupRoute/signupPOST"));
 
-// login route
-app.use("/login", require("./routes/loginRoute/loginGET"));
-app.use("/login", require("./routes/loginRoute/loginPOST"));
+// // login route
+// app.use("/login", require("./routes/loginRoute/loginGET"));
+// app.use("/login", require("./routes/loginRoute/loginPOST"));
 
 // this is for for all unsolved Routes
 app.use("*", require("./routes/routeNotFound/routeNotFoundGET"));

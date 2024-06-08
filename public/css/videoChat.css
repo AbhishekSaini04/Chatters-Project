@@ -1,0 +1,10 @@
+main{
+display: flex;
+
+}
+video.you,video.stranger{
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+    background-color: #fff;
+}
